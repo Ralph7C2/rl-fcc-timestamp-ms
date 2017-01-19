@@ -12,15 +12,19 @@ app.get('/:input', function(req, res) {
 		var d = new Date(inp);
 		
 		if(d.getTime() === null) {
-			console.log("sending null from natural");
 			res.send(null);
 		} else {
-			console.log({unix : d.getTime()/1000, natural:d.toDateString()});
-			res.json({unix : d.getTime()/1000, natural:d.toDateString()});
+			var arr = d.toDateString().split(' ');
+			arr.shift();
+			var str = arr.join(' ');
+			res.json({unix : d.getTime()/1000, str});
 		}
 	} else {
 		var d = new Date(ms*1000);
-		var ret = { unix : ms, "natural" : d.toDateString() };
+		var arr = d.toDateString().split(' ');
+		arr.shift();
+		var str = arr.join(' ');
+		var ret = { unix : ms, "natural" : str };
 		res.json(ret);
 	}
 });
