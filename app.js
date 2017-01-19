@@ -11,21 +11,17 @@ app.get('/:input', function(req, res) {
 	if(isNaN(ms)) {
 		var d = new Date(inp);
 		
-		if(d.time() === null) {
+		if(d.getTime() === null) {
 			console.log("sending null from natural");
 			res.send(null);
 		} else {
-			console.log("sending from natural");
 			console.log({unix : d.getTime()/1000, natural:d.toDateString()});
 			res.json({unix : d.getTime()/1000, natural:d.toDateString()});
 		}
 	} else {
 		var d = new Date(ms*1000);
 		var ret = { unix : ms, "natural" : d.toDateString() };
-		console.log("Sending from unix");
-		console.log(typeof ms);
-		console.log(ms);
-		res.send(ret);
+		res.json(ret);
 	}
 });
 
